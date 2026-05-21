@@ -1,5 +1,66 @@
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // Contract address copy functionality
+    const copyBtn = document.getElementById('copyBtn');
+    const contractAddress = document.getElementById('contractAddress');
+    const copyFeedback = copyBtn.querySelector('.copy-feedback');
+    
+    if (copyBtn && contractAddress) {
+        copyBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const address = contractAddress.textContent.trim();
+            
+            try {
+                // Use modern clipboard API if available
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(address);
+                } else {
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = address;
+                    textArea.style.position = 'fixed';
+                    textArea.style.left = '-999999px';
+                    textArea.style.top = '-999999px';
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                }
+                
+                // Show feedback
+                copyFeedback.classList.add('show');
+                copyBtn.style.background = 'rgba(0, 255, 136, 0.3)';
+                copyBtn.style.borderColor = 'rgba(0, 255, 136, 0.5)';
+                
+                // Hide feedback after 2 seconds
+                setTimeout(() => {
+                    copyFeedback.classList.remove('show');
+                    copyBtn.style.background = '';
+                    copyBtn.style.borderColor = '';
+                }, 2000);
+                
+                // Optional: Log for debugging
+                console.log('Contract address copied to clipboard:', address);
+                
+            } catch (err) {
+                console.error('Failed to copy address:', err);
+                // Show error feedback
+                copyFeedback.textContent = 'Failed!';
+                copyFeedback.style.background = 'rgba(255, 0, 0, 0.8)';
+                copyFeedback.classList.add('show');
+                
+                setTimeout(() => {
+                    copyFeedback.classList.remove('show');
+                    copyFeedback.textContent = 'Copied!';
+                    copyFeedback.style.background = '';
+                }, 2000);
+            }
+        });
+    }
     // Smooth scroll for anchor links
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     

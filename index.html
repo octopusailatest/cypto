@@ -11,7 +11,10 @@
     <header>
         <nav>
             <div class="nav-container">
-                <div class="logo">◈ octopus</div>
+                <div class="logo">
+                    <img src="assets/logo-main.jpeg" alt="Octopus Logo" class="logo-img">
+                    <span>◈ octopus</span>
+                </div>
                 <ul class="nav-menu">
                     <li><a href="#anomaly">Anomaly</a></li>
                     <li><a href="#buy">Buy</a></li>
@@ -26,9 +29,24 @@
     <main>
         <section class="hero">
             <div class="hero-content">
+                <div class="hero-banner">
+                    <img src="assets/logo-banner.jpeg" alt="Octopus Banner" class="banner-img">
+                </div>
                 <h1>Octopus</h1>
                 <p class="tagline">Why every AI converges on the same answer.</p>
-                <a href="#buy" class="cta-button">Contract address HDG8Ng6YLpiYXzBASD1Zd5Wh7T8DHRYFcbf4YGuvpump</a>
+                <div class="contract-container">
+    <a href="#buy" class="cta-button">
+        <span class="contract-label">Contract Address:</span>
+        <span class="contract-address" id="contractAddress">HDG8Ng6YLpiYXzBASD1Zd5Wh7T8DHRYFcbf4YGuvpump</span>
+        <button class="copy-btn" id="copyBtn" title="Copy address">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="copy-feedback">Copied!</span>
+        </button>
+    </a>
+</div>
                 <a href="#anomaly" class="scroll-indicator">Read the Anomaly ↓</a>
             </div>
         </section>
