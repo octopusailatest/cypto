@@ -46,23 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         animateGlow();
     }
     
-    // Typing Animation for Tagline
-    function typeTagline() {
-        const taglineElement = document.getElementById('tagline');
-        const text = "Why every AI converges on the same answer.";
-        let index = 0;
         
-        function type() {
-            if (index < text.length) {
-                taglineElement.textContent += text.charAt(index);
-                index++;
-                setTimeout(type, 50);
-            }
-        }
-        
-        type();
-    }
-    
     // Magnetic Button Effect
     function initMagneticButtons() {
         const buttons = document.querySelectorAll('.cta-button, .buy-button');
@@ -227,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all visual effects
     createParticles();
     initMouseGlow();
-    typeTagline();
     initMagneticButtons();
     initParallax();
     initAdvancedTypography();
