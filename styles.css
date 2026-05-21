@@ -5,21 +5,29 @@
 }
 
 :root {
-    --primary-color: #00d4ff;
-    --secondary-color: #ff00ff;
-    --dark-bg: #0a0a0a;
-    --darker-bg: #050505;
-    --light-text: #ffffff;
-    --gray-text: #a0a0a0;
+    --primary-color: #4a9eff;
+    --secondary-color: #7c3aed;
+    --accent-color: #10b981;
+    --dark-bg: #1a1b26;
+    --darker-bg: #0f0f17;
+    --light-text: #e2e8f0;
+    --gray-text: #94a3b8;
+    --muted-text: #64748b;
     --accent-gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --soft-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --warm-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
 body {
-    font-family: 'Courier New', monospace;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--dark-bg);
     color: var(--light-text);
     line-height: 1.6;
     overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(74, 158, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
 }
 
 /* Header & Navigation */
@@ -27,10 +35,11 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(26, 27, 38, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 1000;
-    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    border-bottom: 1px solid rgba(74, 158, 255, 0.15);
 }
 
 nav {
@@ -48,9 +57,10 @@ nav {
 
 .logo {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 700;
     color: var(--primary-color);
-    text-shadow: 0 0 10px var(--primary-color);
+    text-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
+    letter-spacing: -0.02em;
 }
 
 .nav-menu {
@@ -62,29 +72,35 @@ nav {
 .nav-menu a {
     color: var(--light-text);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    position: relative;
 }
 
 .nav-menu a:hover {
     color: var(--primary-color);
-    text-shadow: 0 0 5px var(--primary-color);
+    background: rgba(74, 158, 255, 0.1);
+    transform: translateY(-1px);
 }
 
 .buy-button {
-    background: var(--accent-gradient);
+    background: var(--soft-gradient);
     color: var(--light-text);
-    padding: 0.5rem 1.5rem;
-    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    border-radius: 12px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(74, 158, 255, 0.25);
+    border: 1px solid rgba(74, 158, 255, 0.2);
 }
 
 .buy-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+    box-shadow: 0 8px 30px rgba(74, 158, 255, 0.4);
+    background: var(--accent-gradient);
 }
 
 /* Hero Section */
@@ -93,8 +109,12 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(74, 158, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
     position: relative;
+    overflow: hidden;
 }
 
 .hero::before {
@@ -105,14 +125,20 @@ nav {
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
-    animation: pulse 4s ease-in-out infinite;
+        radial-gradient(circle at 25% 25%, rgba(102, 126, 234, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 75% 75%, rgba(118, 75, 162, 0.06) 0%, transparent 40%);
+    animation: gentle-float 8s ease-in-out infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
+@keyframes gentle-float {
+    0%, 100% { 
+        opacity: 0.4;
+        transform: translateY(0px) scale(1);
+    }
+    50% { 
+        opacity: 0.7;
+        transform: translateY(-20px) scale(1.05);
+    }
 }
 
 .hero-content {
@@ -123,43 +149,57 @@ nav {
 
 .hero h1 {
     font-size: clamp(3rem, 8vw, 6rem);
-    margin-bottom: 1rem;
-    background: var(--accent-gradient);
+    margin-bottom: 1.5rem;
+    background: var(--soft-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-    animation: glow 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 40px rgba(74, 158, 255, 0.3);
+    animation: gentle-glow 3s ease-in-out infinite alternate;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
 }
 
-@keyframes glow {
-    from { filter: brightness(1); }
-    to { filter: brightness(1.2); }
+@keyframes gentle-glow {
+    from { 
+        filter: brightness(1) saturate(1);
+        transform: translateY(0px);
+    }
+    to { 
+        filter: brightness(1.1) saturate(1.2);
+        transform: translateY(-2px);
+    }
 }
 
 .tagline {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--gray-text);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    opacity: 0.9;
 }
 
 .cta-button {
     display: inline-block;
-    background: var(--accent-gradient);
+    background: var(--soft-gradient);
     color: var(--light-text);
-    padding: 1rem 2rem;
-    border-radius: 30px;
+    padding: 1.2rem 2.5rem;
+    border-radius: 16px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.1rem;
     margin-bottom: 3rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 32px rgba(74, 158, 255, 0.25);
+    border: 1px solid rgba(74, 158, 255, 0.2);
+    backdrop-filter: blur(10px);
 }
 
 .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(0, 212, 255, 0.5);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(74, 158, 255, 0.4);
+    background: var(--accent-gradient);
 }
 
 .scroll-indicator {
@@ -190,19 +230,38 @@ section {
 .anomaly {
     background: var(--darker-bg);
     text-align: center;
+    position: relative;
+}
+
+.anomaly::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 50% 20%, rgba(74, 158, 255, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.03) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .anomaly h2 {
     font-size: 3rem;
     margin-bottom: 3rem;
     color: var(--primary-color);
-    text-shadow: 0 0 10px var(--primary-color);
+    text-shadow: 0 0 30px rgba(74, 158, 255, 0.4);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
 }
 
 .models-section h3 {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: var(--secondary-color);
+    font-weight: 600;
+    opacity: 0.9;
 }
 
 .models-grid {
@@ -213,17 +272,38 @@ section {
 }
 
 .model-card {
-    background: rgba(0, 212, 255, 0.1);
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    border-radius: 10px;
+    background: rgba(74, 158, 255, 0.08);
+    border: 1px solid rgba(74, 158, 255, 0.2);
+    border-radius: 16px;
     padding: 2rem;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.model-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(74, 158, 255, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.model-card:hover::before {
+    opacity: 1;
 }
 
 .model-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(74, 158, 255, 0.25);
     border-color: var(--primary-color);
+    background: rgba(74, 158, 255, 0.12);
 }
 
 .model-icon {
@@ -234,14 +314,31 @@ section {
 /* Buy Section */
 .buy-section {
     background: var(--dark-bg);
+    position: relative;
+}
+
+.buy-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(124, 58, 237, 0.03) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .buy-section h2 {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 3rem;
-    color: var(--primary-color);
-    text-shadow: 0 0 10px var(--primary-color);
+    color: var(--accent-color);
+    text-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
 }
 
 .buy-steps {
