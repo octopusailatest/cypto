@@ -1,6 +1,168 @@
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Particle System
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const cryptoEmojis = ['🐙', '🦑', '₿', '💰', '🪙', '💎', '📈', '💹', '�', '�', '💳', '⚡'];
+        
+        for (let i = 0; i < 8; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.textContent = cryptoEmojis[Math.floor(Math.random() * cryptoEmojis.length)];
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.fontSize = (Math.random() * 15 + 12) + 'px';
+            particlesContainer.appendChild(particle);
+        }
+    }
+    
+    // Mouse Glow Effect
+    function initMouseGlow() {
+        const mouseGlow = document.getElementById('mouseGlow');
+        let mouseX = 0, mouseY = 0;
+        let currentX = 0, currentY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            mouseGlow.classList.add('active');
+        });
+        
+        document.addEventListener('mouseleave', () => {
+            mouseGlow.classList.remove('active');
+        });
+        
+        function animateGlow() {
+            currentX += (mouseX - currentX) * 0.1;
+            currentY += (mouseY - currentY) * 0.1;
+            
+            mouseGlow.style.left = currentX + 'px';
+            mouseGlow.style.top = currentY + 'px';
+            
+            requestAnimationFrame(animateGlow);
+        }
+        
+        animateGlow();
+    }
+    
+    // Typing Animation for Tagline
+    function typeTagline() {
+        const taglineElement = document.getElementById('tagline');
+        const text = "Why every AI converges on the same answer.";
+        let index = 0;
+        
+        function type() {
+            if (index < text.length) {
+                taglineElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, 50);
+            }
+        }
+        
+        type();
+    }
+    
+    // Magnetic Button Effect
+    function initMagneticButtons() {
+        const buttons = document.querySelectorAll('.cta-button, .buy-button');
+        
+        buttons.forEach(button => {
+            button.classList.add('magnetic-btn');
+            
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+            });
+        });
+    }
+    
+        
+    // Parallax Scrolling with Wave Effects
+    function initParallax() {
+        const layers = document.querySelectorAll('.parallax-layer');
+        const waves = document.querySelectorAll('.wave');
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            // Parallax layers
+            layers.forEach((layer, index) => {
+                const speed = 0.5 + (index * 0.2);
+                layer.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+            
+            // Wave scroll interaction
+            waves.forEach((wave, index) => {
+                const waveSpeed = 0.3 + (index * 0.1);
+                const yOffset = scrolled * waveSpeed;
+                const rotation = scrolled * 0.01 * (index + 1);
+                wave.style.transform = `translateX(${-40 - index * 5}px) translateY(${yOffset}px) rotate(${rotation}deg)`;
+            });
+        });
+    }
+    
+    // Advanced Typography Animations
+    function initAdvancedTypography() {
+        // Word reveal for headings
+        const headings = document.querySelectorAll('h2, h3');
+        
+        headings.forEach((heading, index) => {
+            const words = heading.textContent.split(' ');
+            heading.innerHTML = '';
+            
+            words.forEach((word, wordIndex) => {
+                const span = document.createElement('span');
+                span.textContent = word + ' ';
+                span.style.animationDelay = `${(wordIndex * 0.1) + (index * 0.2)}s`;
+                heading.appendChild(span);
+            });
+            
+            heading.classList.add('word-reveal');
+        });
+        
+        // 3D text hover effects
+        const textElements = document.querySelectorAll('.hero h1, h2');
+        textElements.forEach(element => {
+            element.classList.add('text-3d');
+        });
+        
+        // Enhanced typing animation with cursor
+        const taglineElement = document.getElementById('tagline');
+        if (taglineElement) {
+            taglineElement.classList.add('typing-cursor');
+        }
+    }
+    
+    // Scroll Triggered Animations
+    function initScrollAnimations() {
+        const elements = document.querySelectorAll('.model-card, .community-link, .metric-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        elements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    }
+    
     // Contract address copy functionality
     const copyBtn = document.getElementById('copyBtn');
     const contractAddress = document.getElementById('contractAddress');
@@ -61,6 +223,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Initialize all visual effects
+    createParticles();
+    initMouseGlow();
+    typeTagline();
+    initMagneticButtons();
+    initParallax();
+    initAdvancedTypography();
+    initScrollAnimations();
+    
     // Smooth scroll for anchor links
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     
